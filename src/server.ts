@@ -1,4 +1,6 @@
 import express from 'express';
+import { createdAuthor, deleteAuthorById, getAllAuthor, updateAuthorById } from './controllers/author.controller';
+import { createBook, deleteBookById, getAllBooks, updateBookById } from './controllers/books.controller';
 
 const app = express();
 const PORT = process.env.PORT || 4000
@@ -9,41 +11,24 @@ app.get('/healthy', (req,res)=>{
     res.send('Server is healthy')
 })
 //Authors
-app.get('/authors', (req,res)=>{
-    res.send('Get all authors')
-})
+app.get('/authors', getAllAuthor)
 
-app.post('/authors',(req, res) =>{
-    console.log(req.body)
-    console.log(req.body.name)
-    res.send('Author created')
-})
+app.post('/authors', createdAuthor)
 
-app.put('/authors/:id',(req, res) =>{
-    res.send(`Author updated con id: ${req.params.id}`)
-})
+app.put('/authors/:id',updateAuthorById)
 
-app.delete('/authors/:id',(req, res) =>{
-    res.send(`Author deleted con id: ${req.params.id}`)
-})
+app.delete('/authors/:id',deleteAuthorById)
 
 // Books
-app.get('/books', (req,res)=>{
-    res.send('Get all books')
-})
+app.get('/books', getAllBooks)
 
-app.post('/books',(req, res) =>{
-    res.send('Book created')
-})
+app.post('/books',createBook)
 
-app.put('/books',(req, res) =>{
-    res.send('Book updated')
-})
+app.put('/books/:id',updateBookById)
 
-app.delete('/books',(req, res) =>{
-    res.send('Book deleted')
-})
+app.delete('/books/:id',deleteBookById)
 
+// Sever listening
 app.listen(PORT, () =>{
     console.log(`Server is running on port ${PORT}`)
 })

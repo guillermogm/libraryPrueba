@@ -1,0 +1,8 @@
+git init
+npm init
+npm i express
+npm i --save-dev @types/express
+npm i typescript -d
+npm tsc (para compilar)
+npm i nodemon -D
+npm i ts-node -D
