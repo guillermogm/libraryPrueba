@@ -1,11 +1,16 @@
 import express from 'express';
 
-const app=express();
+const app = express();
+const PORT = process.env.PORT || 4000
 
 app.get('/healthy', (req,res)=>{
     res.send('Server is healthy')
 })
 
-app.listen(4000, () =>{
-    console.log("Server is running")
+app.get('/books', (req,res)=>{
+    res.send('Get all books')
+})
+
+app.listen(PORT, () =>{
+    console.log(`Server is running on port ${PORT}`)
 })
