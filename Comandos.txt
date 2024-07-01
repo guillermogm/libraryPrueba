@@ -10,3 +10,10 @@ npm i dotenv
 --DataBase--
 npm i typeorm
 descomentar experimental decorator y emit decorator
+--migration--
+npx typeorm migration:create ./src/database/migrations/author
+
+--Crear tabla
+npx typeorm-ts-node-common.js  migration:run ./src/database/db.ts
+--Drop tabla
+npx typeorm-ts-node-common.js  migration:revert ./src/database/db.ts
