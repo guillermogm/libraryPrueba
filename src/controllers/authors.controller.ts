@@ -6,6 +6,12 @@ export const getAllAuthor = (req: Request, res:Response) =>{
         message: "Get all authors"
     })
 }
+export const getAuthor = (req: Request, res:Response) =>{
+    res.json({
+        success: true,
+        message: `Get author: ${req.params.id}` 
+    })
+}
 export const createdAuthor = (req: Request, res:Response) =>{
     console.log(req.body)
     console.log(req.body.name)

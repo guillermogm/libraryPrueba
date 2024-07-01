@@ -28,3 +28,9 @@ export const deleteBookById = (req: Request, res:Response) =>{
         message: `Book borrado con id: ${req.params.id}`
     })
 }
+export const getBookById = (req: Request, res:Response) =>{
+    res.json({
+        success: true,
+        message: `Get book con id: ${req.params.id}`
+    })
+}

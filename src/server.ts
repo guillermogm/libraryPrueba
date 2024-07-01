@@ -1,7 +1,10 @@
 import 'dotenv/config';
 import express from 'express';
-import { createdAuthor, deleteAuthorById, getAllAuthor, updateAuthorById } from './controllers/author.controller';
-import { createBook, deleteBookById, getAllBooks, updateBookById } from './controllers/books.controller';
+import { createdAuthor, deleteAuthorById, getAllAuthor, getAuthor, updateAuthorById } from './controllers/authors.controller';
+import { createBook, deleteBookById, getAllBooks, getBookById, updateBookById } from './controllers/books.controller';
+import { createLoans, getAllLoans,updateLoanById, getLoanById, deleteLoanById } from './controllers/loans.controller';
+import { createUser, getUserProfile, updateUserById, deleteUserById, getUserById } from './controllers/user.controller';
+import { logInUser, signInUser } from './controllers/auth.controller';
 
 const app = express();
 const PORT = process.env.PORT || 4000
@@ -16,16 +19,40 @@ app.get('/healthy', (req,res)=>{
     })
 })
 //Authors
-app.get('/authors', getAllAuthor)
-app.post('/authors', createdAuthor)
-app.put('/authors/:id',updateAuthorById)
+app.get('/api/authors', getAllAuthor)
+app.post('/api/authors', createdAuthor)
+app.put('/api/authors/:id',updateAuthorById)
 app.delete('/authors/:id',deleteAuthorById)
+app.get('/api/author/:id', getAuthor)
+
 
 // Books
-app.get('/books', getAllBooks)
-app.post('/books',createBook)
-app.put('/books/:id',updateBookById)
-app.delete('/books/:id',deleteBookById)
+app.get('/api/books', getAllBooks)
+app.post('/api/books',createBook)
+app.put('/api/books/:id',updateBookById)
+app.delete('/api/books/:id',deleteBookById)
+app.get('/api/books/:id', getBookById)
+
+// Loans
+
+app.get('/api/books', getAllLoans)
+app.post('/api/books',createLoans)
+app.put('/api/books/:id',updateLoanById)
+app.delete('/api/books/:id',deleteLoanById)
+app.get('/api/books/:id', getLoanById)
+
+// Users
+
+app.get('/api/users/profile', getUserProfile)
+app.post('/api/users/',createUser)
+app.put('/api/users/:id',updateUserById)
+app.delete('/api/users/:id',deleteUserById)
+app.get('/api/users/:id', getUserById)
+
+// Auth
+app.post('/api/auth/register', signInUser)
+app.post('/api/auth/login', logInUser)
+
 
 // Sever listening
 app.listen(PORT, () =>{
