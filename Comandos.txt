@@ -6,3 +6,4 @@ npm i typescript -d
 npm tsc (para compilar)
 npm i nodemon -D
 npm i ts-node -D
+npm i dotenv
