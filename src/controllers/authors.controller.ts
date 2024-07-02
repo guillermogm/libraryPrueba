@@ -4,23 +4,23 @@ import { Author } from "../database/models/Author"
 export const getAllAuthor = async (req: Request, res: Response) => {
     try {
         const Authors = await Author.find()
-         res.status(200).json({
-             success: true,
-             message:"Authors retrive successfully",
-             data:Authors
-         })
- 
-     } catch (error) {
-         res.status(500).json({
-             success: false,
-             message:"Error retrive authors",
-             error:error
-            })
-         
-     }
+        res.status(200).json({
+            success: true,
+            message: "Authors retrive successfully",
+            data: Authors
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error retrive authors",
+            error: error
+        })
+
+    }
 }
 export const getAuthor = async (req: Request, res: Response) => {
-   
+
 }
 export const createdAuthor = async (req: Request, res: Response) => {
     try {
@@ -58,25 +58,57 @@ export const createdAuthor = async (req: Request, res: Response) => {
         })
     } catch (error) {
 
-       res.status(500).json({
-        success: false,
-        message:"Error creating author",
-        error:error
-       })
+        res.status(500).json({
+            success: false,
+            message: "Error creating author",
+            error: error
+        })
 
     }
 }
 
-export const updateAuthorById = (req: Request, res: Response) => {
-    res.json({
-        success: true,
-        message: `Author updated con id: ${req.params.id}`
-    })
+export const updateAuthorById = async(req: Request, res: Response) => {
+    try {
+        const idUpdate =req.params.id
+        const newInfo=req.body
+        
+        const updateAuthor = await Author.update({id:parseInt(idUpdate)}, newInfo)
+        res.status(200).json({
+            succes:true,
+            message:"Update Author successfully",
+            data:updateAuthor
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error Updating author",
+            error: error
+        })
+    }
 }
 
-export const deleteAuthorById = (req: Request, res: Response) => {
-    res.json({
-        success: true,
-        message: `Author borrado con id: ${req.params.id}`
-    })
+export const deleteAuthorById = async (req: Request, res: Response) => {
+    try {
+        const idDelete =req.params.id
+        const deleteAuthor = await Author.delete(Number(idDelete))
+        if(!deleteAuthor.affected){
+            return res.status(404).json({
+                success:false,
+                message:"Author doesn't exist"
+            })
+        }
+        res.status(200).json({
+            succes:true,
+            message:"Delete Author successfully",
+            data:deleteAuthor
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error deleting author",
+            error: error
+        })
+    }
 }

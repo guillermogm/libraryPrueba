@@ -23,7 +23,7 @@ app.get('/healthy', (req, res) => {
 app.get('/api/authors', getAllAuthor)
 app.post('/api/authors', createdAuthor)
 app.put('/api/authors/:id', updateAuthorById)
-app.delete('/authors/:id', deleteAuthorById)
+app.delete('/api/authors/:id', deleteAuthorById)
 app.get('/api/author/:id', getAuthor)
 
 
