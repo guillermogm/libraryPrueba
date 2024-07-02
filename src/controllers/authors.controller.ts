@@ -1,17 +1,26 @@
 import { Request, Response } from "express"
 import { Author } from "../database/models/Author"
 
-export const getAllAuthor = (req: Request, res: Response) => {
-    res.json({
-        success: true,
-        message: "Get all authors"
-    })
+export const getAllAuthor = async (req: Request, res: Response) => {
+    try {
+        const Authors = await Author.find()
+         res.status(200).json({
+             success: true,
+             message:"Authors retrive successfully",
+             data:Authors
+         })
+ 
+     } catch (error) {
+         res.status(500).json({
+             success: false,
+             message:"Error retrive authors",
+             error:error
+            })
+         
+     }
 }
-export const getAuthor = (req: Request, res: Response) => {
-    res.json({
-        success: true,
-        message: `Get author: ${req.params.id}`
-    })
+export const getAuthor = async (req: Request, res: Response) => {
+   
 }
 export const createdAuthor = async (req: Request, res: Response) => {
     try {
@@ -51,7 +60,8 @@ export const createdAuthor = async (req: Request, res: Response) => {
 
        res.status(500).json({
         success: false,
-        message:"Error creating author"
+        message:"Error creating author",
+        error:error
        })
 
     }
