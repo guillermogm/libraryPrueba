@@ -77,11 +77,29 @@ export const updateBookById = async(req: Request, res:Response) =>{
     }
 }
 
-export const deleteBookById = (req: Request, res:Response) =>{
-    res.json({
-        success: true,
-        message: `Book borrado con id: ${req.params.id}`
-    })
+export const deleteBookById = async(req: Request, res:Response) =>{
+    try {
+        const idDelete =req.params.id
+        const deleteBook = await Book.delete(Number(idDelete))
+        if(!deleteBook.affected){
+            return res.status(404).json({
+                success:false,
+                message:"Book doesn't exist"
+            })
+        }
+        res.status(200).json({
+            succes:true,
+            message:"Delete Book successfully",
+            data:deleteBook
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error deleting Book",
+            error: error
+        })
+    }
 }
 export const getBookById = (req: Request, res:Response) =>{
     res.json({
