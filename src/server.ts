@@ -3,7 +3,7 @@ import express from 'express';
 import { createdAuthor, deleteAuthorById, getAllAuthor, getAuthor, updateAuthorById } from './controllers/authors.controller';
 import { createBook, deleteBookById, getAllBooks, getBookById, updateBookById } from './controllers/books.controller';
 import { createLoans, getAllLoans, updateLoanById, getLoanById, deleteLoanById } from './controllers/loans.controller';
-import { createUser, getUserProfile, updateUserById, deleteUserById, getUserById } from './controllers/user.controller';
+import { createUser, updateUserById, deleteUserById, getUserById, getUsers } from './controllers/user.controller';
 import { logInUser, signInUser } from './controllers/auth.controller';
 import { AppDataSource } from './database/db';
 
@@ -44,7 +44,7 @@ app.get('/api/loans/:id', getLoanById)
 
 // Users
 
-app.get('/api/users/profile', getUserProfile)
+app.get('/api/users/', getUsers)
 app.post('/api/users/', createUser)
 app.put('/api/users/:id', updateUserById)
 app.delete('/api/users/:id', deleteUserById)
