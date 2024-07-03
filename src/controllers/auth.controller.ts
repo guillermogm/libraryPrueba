@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { User } from "../database/models/User"
 import bcrypt from "bcrypt"
 
-export const signInUser = async (req: Request, res:Response) =>{
+export const signInUser = async (req: Request, res: Response) => {
     try {
         // saca info del body del json
         const email = req.body.email
@@ -25,7 +25,7 @@ export const signInUser = async (req: Request, res:Response) =>{
                 }
             )
         }
-        if(password.length <8  || password.length >12){
+        if (password.length < 8 || password.length > 12) {
             return res.status(400).json(
                 {
                     success: false,
@@ -35,7 +35,7 @@ export const signInUser = async (req: Request, res:Response) =>{
         }
         // To do validar formato email y encriptar  contraseña
 
-       const hashedPass = bcrypt.hashSync(password, 10)
+        const hashedPass = bcrypt.hashSync(password, 10)
 
         // Guardar datos en la base de datos
         const newUser = await User.create({
@@ -59,10 +59,47 @@ export const signInUser = async (req: Request, res:Response) =>{
 
     }
 }
-export const logInUser = (req: Request, res:Response) =>{
-    res.json({
-        success: true,
-        message: "User logged"
-    })
+export const logInUser = async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body
+
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Email and Password are needed"
+            })
+        }
+
+        const user = await User.findOne({
+            where: { email: email }
+        })
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "Email or password not valid"
+            })
+        }
+
+        if (!bcrypt.compareSync(password, user.password)) {
+            return res.status(400).json({
+                succes: false,
+                message: "Email or password not valid"
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            Message: "User logged"
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error log in user",
+            error: error
+        })
+
+    }
 }
 

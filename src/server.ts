@@ -36,11 +36,11 @@ app.get('/api/books/:id', getBookById)
 
 // Loans
 
-app.get('/api/books', getAllLoans)
-app.post('/api/books', createLoans)
-app.put('/api/books/:id', updateLoanById)
-app.delete('/api/books/:id', deleteLoanById)
-app.get('/api/books/:id', getLoanById)
+app.get('/api/loans', getAllLoans)
+app.post('/api/loans', createLoans)
+app.put('/api/loans/:id', updateLoanById)
+app.delete('/api/loans/:id', deleteLoanById)
+app.get('/api/loans/:id', getLoanById)
 
 // Users
 
