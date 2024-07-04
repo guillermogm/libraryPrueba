@@ -8,6 +8,7 @@ import { logInUser, signInUser } from './controllers/auth.controller';
 import { AppDataSource } from './database/db';
 import { auth } from './middlewares/auth';
 import { isAdmin } from './middlewares/isAdmin';
+import { Admin } from 'typeorm';
 
 const app = express();
 const PORT = process.env.PORT || 4000
@@ -30,7 +31,7 @@ app.get('/api/author/:id', getAuthor)
 
 
 // Books
-app.get('/api/books', getAllBooks)
+app.get('/api/books',auth,isAdmin,getAllBooks)
 app.post('/api/books', createBook)
 app.put('/api/books/:id', updateBookById)
 app.delete('/api/books/:id', deleteBookById)
