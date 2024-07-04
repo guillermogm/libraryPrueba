@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { User } from "../database/models/User"
 
+
 export const getUsers = async (req: Request, res:Response) =>{
     try {
 
@@ -47,4 +48,25 @@ export const getUserById = (req: Request, res:Response) =>{
         success: true,
         message: `Get User con id: ${req.params.id}`
     })
+}
+export const getUserProfile = async (req: Request, res:Response) =>{
+    try {
+        const userId=req.tokenData.id
+        const profile= await User.findOne({
+            where: {id: userId}
+        })
+        return res.status(201).json({
+            success: true,
+            message: "User profile retrived",
+            data: profile
+    
+        })
+        
+    } catch (error) {
+       return res.status(500).json({
+            success: false,
+            message: "Error retirng  Users",
+            error: error
+        })
+    }
 }

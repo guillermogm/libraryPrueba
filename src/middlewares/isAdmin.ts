@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken'
 import { TokenDecoded } from "../types";
 
-export const auth= (req: Request,res: Response, next: NextFunction)=>{
+export const isAdmin= (req: Request,res: Response, next: NextFunction)=>{
     try {
     console.log(req.headers.authorization)
 
@@ -12,9 +12,15 @@ export const auth= (req: Request,res: Response, next: NextFunction)=>{
             message:"Unauthorized"
         })
     }
-    //spit convierte en Arrays a partir de un caracter
     const token=req.headers.authorization.split(" ")[1]
     const decoded= jwt.verify(token,process.env.SECRET as string) as TokenDecoded;
+
+    if (decoded.role !== "admin"){
+        return res.status(401).json({
+            success:false,
+            message:"Unauthorized"
+        })
+    }
 
     req.tokenData= {
         id: decoded.id,
