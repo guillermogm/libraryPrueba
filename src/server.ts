@@ -6,6 +6,7 @@ import { createLoans, getAllLoans, updateLoanById, getLoanById, deleteLoanById }
 import { createUser, updateUserById, deleteUserById, getUserById, getUsers } from './controllers/user.controller';
 import { logInUser, signInUser } from './controllers/auth.controller';
 import { AppDataSource } from './database/db';
+import { auth } from './middlewares/auth';
 
 const app = express();
 const PORT = process.env.PORT || 4000
@@ -20,7 +21,7 @@ app.get('/healthy', (req, res) => {
     })
 })
 //Authors
-app.get('/api/authors', getAllAuthor)
+app.get('/api/authors',auth,getAllAuthor)
 app.post('/api/authors', createdAuthor)
 app.put('/api/authors/:id', updateAuthorById)
 app.delete('/api/authors/:id', deleteAuthorById)
