@@ -1,10 +1,12 @@
 import { Request, Response } from "express"
 import { User } from "../database/models/User"
 import bcrypt from "bcrypt"
+import jwt from 'jsonwebtoken'
 
 export const signInUser = async (req: Request, res: Response) => {
     try {
         // saca info del body del json
+        const name =req.body.name
         const email = req.body.email
         const password = req.body.password
 
@@ -39,6 +41,7 @@ export const signInUser = async (req: Request, res: Response) => {
 
         // Guardar datos en la base de datos
         const newUser = await User.create({
+            name:name,
             email: email,
             password: hashedPass
         }).save()
@@ -88,9 +91,18 @@ export const logInUser = async (req: Request, res: Response) => {
             })
         }
 
+        // Token login
+
+       const token = jwt.sign({
+            id: user.id,
+            role: user.role
+          }, 'secret', { expiresIn: '2h' });
+          
+
         return res.status(200).json({
             success: true,
-            Message: "User logged"
+            Message: "User logged",
+            token: token
         })
 
     } catch (error) {
