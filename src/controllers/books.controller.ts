@@ -1,9 +1,23 @@
 import { Request, Response } from "express"
 import { Book } from "../database/models/Book"
 
+
 export const getAllBooks = async(req: Request, res:Response) =>{
 try {
-    const allBooks= await Book.find()
+    const allBooks= await Book.find({
+        select:{
+            title:true,
+            description:true,
+            author:{
+                id:true,
+                name:true,
+                nationality:true
+            }
+        },
+        relations:{
+            author:true
+        }
+    })
     return res.status(201).json({
         success: true,
         message: "All Books retrived",

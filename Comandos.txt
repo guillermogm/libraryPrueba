@@ -6,3 +6,5 @@ npx typeorm-ts-node-common.js  migration:run ./src/database/db.ts
 --Drop tabla
 npx typeorm-ts-node-common.js  migration:revert ./src/database/db.ts
 
+--create model--
+npx typeorm entity:create ./src/database/models/Author

@@ -70,3 +70,29 @@ export const getUserProfile = async (req: Request, res:Response) =>{
         })
     }
 }
+export const getUserFavouritesBooks = async(req: Request, res:Response) =>{
+    try {
+        const userId=req.tokenData.id
+        const fauvoritesBooks = await User.findOne({
+            where:{
+                id:userId
+            },
+            relations:{
+                favourite_books:true
+            }
+        })
+        return res.status(201).json({
+            success: true,
+            message: "All fauvorites Books retrived",
+            data: fauvoritesBooks
+    
+        })
+        
+    } catch (error) {
+       return res.status(500).json({
+            success: false,
+            message: "Error getting fauvorites Books",
+            error: error
+        })
+    }
+    }
