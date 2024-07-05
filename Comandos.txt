@@ -5,3 +5,4 @@ npx typeorm migration:create ./src/database/migrations/author
 npx typeorm-ts-node-common.js  migration:run ./src/database/db.ts
 --Drop tabla
 npx typeorm-ts-node-common.js  migration:revert ./src/database/db.ts
+
