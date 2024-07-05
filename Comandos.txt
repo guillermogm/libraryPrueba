@@ -1,15 +1,3 @@
-git init
-npm init
-npm i express
-npm i --save-dev @types/express
-npm i typescript -d
-npm tsc (para compilar)
-npm i nodemon -D
-npm i ts-node -D
-npm i dotenv
---DataBase--
-npm i typeorm
-descomentar experimental decorator y emit decorator
 --migration--
 npx typeorm migration:create ./src/database/migrations/author
 
