@@ -9,6 +9,7 @@ import { AppDataSource } from './database/db';
 import { auth } from './middlewares/auth';
 import { isAdmin } from './middlewares/isAdmin';
 import { Admin } from 'typeorm';
+import { createFauvorite, deleteFauvorite } from './controllers/fauvorites.controller';
 
 const app = express();
 const PORT = process.env.PORT || 4000
@@ -58,6 +59,11 @@ app.get('/api/fauvorites',auth, getUserFavouritesBooks)
 // Auth
 app.post('/api/auth/register', signInUser)
 app.post('/api/auth/login', logInUser)
+
+//Fauvorites
+//app.get('/api/user/fauvorites',auth, getAllFauvorites)
+app.post('/api/user/fauvorites', auth,createFauvorite)
+app.delete('/api/user/fauvorites/:id',auth, deleteFauvorite)
 
 
 AppDataSource.initialize()

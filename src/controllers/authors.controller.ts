@@ -3,7 +3,16 @@ import { Author } from "../database/models/Author"
 
 export const getAllAuthor = async (req: Request, res: Response) => {
     try {
-        const Authors = await Author.find()
+        let limit= Number(req.query.limit || 5)
+        const page= Number(req.query.page || 1)
+
+        if (limit>10){
+            limit=10
+        }
+        const Authors = await Author.find({
+            skip:(page-1)*limit,
+            take:limit
+        })
         res.status(200).json({
             success: true,
             message: "Authors retrive successfully",
