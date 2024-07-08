@@ -3,8 +3,8 @@ import { Author } from "../database/models/Author"
 
 export const getAllAuthor = async (req: Request, res: Response) => {
     try {
-        let limit= Number(req.query.limit || 5)
-        const page= Number(req.query.page || 1)
+        let limit= Number(req.query.limit) || 5
+        const page= Number(req.query.page) || 1
 
         if (limit>10){
             limit=10
