@@ -1,4 +1,4 @@
---migration--
+--Create migration--
 npx typeorm migration:create ./src/database/migrations/author
 
 --Crear tabla
@@ -8,3 +8,7 @@ npx typeorm-ts-node-common.js  migration:revert ./src/database/db.ts
 
 --create model--
 npx typeorm entity:create ./src/database/models/Author
+
+--Drop databse--
+
+npx typeorm-ts-node-commonjs schema:drop -d ./src/database/db.ts
