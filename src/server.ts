@@ -18,7 +18,7 @@ app.use(express.json())
 
 app.get('/healthy', (req, res) => {
     //res.send('Server is healthy')
-    res.status(205).json({
+    res.status(200).json({
         success: true,
         message: "Server is healthy"
     })
