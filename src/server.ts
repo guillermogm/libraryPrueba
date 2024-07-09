@@ -23,6 +23,7 @@ app.get('/healthy', (req, res) => {
         message: "Server is healthy"
     })
 })
+
 //Authors
 app.get('/api/authors',auth,getAllAuthor)
 app.post('/api/authors', createdAuthor)
